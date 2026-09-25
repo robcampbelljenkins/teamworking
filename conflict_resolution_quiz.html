@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conflict Resolution Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="w-full max-w-3xl bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+        
+        <!-- Header -->
+        <div class="bg-blue-800 text-white p-5 flex justify-between items-center">
+            <h1 class="text-xl font-semibold">Conflict Resolution Revision</h1>
+            <div id="progress-text" class="text-sm font-medium bg-blue-900 px-3 py-1 rounded-full">
+                Question 1 of 4
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-gray-200 h-1.5">
+            <div id="progress-bar" class="bg-blue-500 h-1.5 transition-all duration-300 w-1/4"></div>
+        </div>
+
+        <!-- Quiz Content Area -->
+        <div class="p-6 md:p-8 flex-grow">
+            
+            <!-- Question View -->
+            <div id="question-view" class="fade-in">
+                <div class="mb-6">
+                    <h2 id="question-text" class="text-lg md:text-xl font-medium text-gray-800 leading-relaxed whitespace-pre-line">
+                        <!-- Question text injected here -->
+                    </h2>
+                </div>
+
+                <div id="options-container" class="space-y-3">
+                    <!-- Options injected here -->
+                </div>
+
+                <div id="feedback-container" class="hidden mt-6 rounded-lg p-5 border-l-4">
+                    <div class="flex items-center mb-2">
+                        <span id="feedback-icon" class="text-2xl mr-2"></span>
+                        <h3 id="feedback-title" class="text-lg font-bold"></h3>
+                    </div>
+                    <div id="feedback-explanation" class="text-gray-700 mt-2 text-sm md:text-base whitespace-pre-line">
+                        <!-- Explanation text injected here -->
+                    </div>
+                </div>
+
+                <button id="next-btn" class="hidden w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Next Question
+                </button>
+            </div>
+
+            <!-- Results View -->
+            <div id="results-view" class="hidden text-center fade-in py-10">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-full mb-4">
+                    <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Quiz Complete!</h2>
+                <p class="text-lg text-gray-600 mb-6">You scored <span id="final-score" class="font-bold text-blue-600 text-2xl"></span> out of <span id="total-questions" class="font-bold text-2xl"></span>.</p>
+                <button id="restart-btn" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                    Retake Quiz
+                </button>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data - EXACT text retained as requested
+        const quizData = [
+            {
+                question: 'Two medical students, Sam and Priya, are collaborating on a quality improvement project. Sam is feeling overwhelmed by his workload from clinical placements and self-directed learning, and wants only to produce work that is "good enough" to pass. Priya feels anxious about letting her average grade slip and insists on adding extra tests of change to achieve a top grade. Exasperated, Sam tells Priya: "You need to stop being such a perfectionist, we’re submitting it as it is."\n\nConsidering conflict resolution theory, what is Sam\'s position and what is Sam’s interest?',
+                options: [
+                    'Position: Demanding they submit the project as it is; Interest: Managing excessive workload pressure.',
+                    'Position: Feeling overwhelmed by placement demands and self-directed learning; Interest: Submitting the project without further changes.',
+                    'Position: Producing work that is "good enough" to pass; Interest: Confronting Priya about her perfectionism.',
+                    'Position: Disagreeing with adding extra tests of change; Interest: Forcing Priya to take sole responsibility for any extra work.'
+                ],
+                correctIndex: 0,
+                explanation: 'o In conflict resolution theory, a position is a person’s specific demand for ending a conflict, whereas an interest represents their underlying wants, needs, or fears. In other words, their position is “what” they want and their interest is “why” they want it.\n\no In conflict it is beneficial to consider things in these terms as it can break positional deadlocks and move the dynamic of the conversation to joint problem solving. When two parties are both arguing from positions, their demands are often mutually exclusive. However, interests often have multiple solutions.\n\no In this case the position is submitting the project as it is (the outward demand and specific solution Sam insists upon). Sam’s interest is alleviating workload strain (the underlying emotional and practical need driving Sam\'s demand).'
+            },
+            {
+                question: 'The DEAR MAN tool is used to communicate needs and boundaries effectively during interpersonal conflict. What does the DEAR component of the acronym stand for?',
+                options: [
+                    'Defend your stance, Explain your logic, Act with resolve, Reiterate your point',
+                    'Describe the facts, Express feelings, Assert what you want, Reinforce positive outcomes',
+                    'De-escalate emotions, Empathise, Affirm common ground, Reframe the problem',
+                    'Debate, Evaluate, Act, Reflect'
+                ],
+                correctIndex: 1,
+                explanation: 'The DEAR section of DEARMAN interpersonal effectiveness framework provides an acronym for how to effectively ask for what you want during conflict. \n\nD: Describe - Stick strictly to the objective facts without accusations or judgment ("When X happened on Tuesday...").\nE: Express - Use "I" statements to share how the situation impacts you ("I felt overwhelmed because...").\nA: Assert - Clearly state what you want or need ("I need us to divide the workload differently").\nR: Reinforce - Explain the positive outcomes of meeting your request ("If we do this, we\'ll both have more time to unwind").'
+            },
+            {
+                question: 'What does the MAN component of the DEARMAN interpersonal effectiveness framework stand for?',
+                options: [
+                    'Maintain boundaries, Affirm common ground, Navigate escalation steps',
+                    'Manage hostility, Act impartially, Neutralise opposing arguments',
+                    'remain Mindful of goals, Appear confident, Negotiate workable solutions',
+                    'Moderate expectations, Acknowledge emotions, Notice non-verbal cues'
+                ],
+                correctIndex: 2,
+                explanation: 'The MAN component of DEARMAN describes how you should act (The DEAR component describes the content, MAN describes the delivery). \n\nM: Mindful - Keep your focus fixed on your objective. When the other person tries to derail, deflect, or bring up old arguments (the "kitchen sink" defense), you "broken record" your original point right back to it.\nA: Appear Confident - Use a steady voice, maintain appropriate eye contact, and avoid slouching, hedging language ("I\'m sorry, but maybe..."), or unnecessary apologies.\nN: Negotiate - Be willing to give to get. Be open to alternative solutions if they meet your core need, and show a willingness to problem-solve collaboratively.'
+            },
+            {
+                question: 'A student on placement identifies a concern directly related to patient safety. According to the School of Medicine protocol, what is the correct action to take?',
+                options: [
+                    'Submit a report through the Student Voice platform on GALEN/SOLAS',
+                    'Document the observation in your portfolio and discuss it at your next portfolio review',
+                    'Inform the session tutor or a senior member of staff in the placement area',
+                    'Contact the University Mediation Service to arrange a facilitated discussion'
+                ],
+                correctIndex: 2,
+                explanation: 'For concerns directly relating to patient safety, the protocol directs students to inform the session tutor or a senior staff member in the placement area (or medical school staff if placement staff are unavailable) rather than using the standard Student Voice form.'
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        // DOM Elements
+        const questionView = document.getElementById('question-view');
+        const resultsView = document.getElementById('results-view');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackContainer = document.getElementById('feedback-container');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackExplanation = document.getElementById('feedback-explanation');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        const progressBar = document.getElementById('progress-bar');
+        const finalScore = document.getElementById('final-score');
+        const totalQuestions = document.getElementById('total-questions');
+        const restartBtn = document.getElementById('restart-btn');
+
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            questionView.classList.remove('hidden');
+            resultsView.classList.add('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const currentQuestion = quizData[currentQuestionIndex];
+            
+            // Update UI State
+            progressText.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            progressBar.style.width = `${((currentQuestionIndex + 1) / quizData.length) * 100}%`;
+            
+            // Render Question
+            questionText.innerText = currentQuestion.question;
+            
+            // Render Options
+            optionsContainer.innerHTML = '';
+            const labels = ['A)', 'B)', 'C)', 'D)'];
+            
+            currentQuestion.options.forEach((optionText, index) => {
+                const button = document.createElement('button');
+                button.className = 'w-full text-left p-4 rounded-lg border-2 border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50 transition-all duration-200 focus:outline-none flex items-start';
+                button.innerHTML = `<span class="font-bold mr-2 mt-0.5 text-gray-700">${labels[index]}</span><span class="text-gray-800">${optionText}</span>`;
+                button.onclick = () => selectOption(index, button);
+                optionsContainer.appendChild(button);
+            });
+
+            // Reset Feedback & Next Button
+            feedbackContainer.classList.add('hidden');
+            feedbackContainer.className = 'hidden mt-6 rounded-lg p-5 border-l-4'; // reset classes
+            nextBtn.classList.add('hidden');
+            
+            // Trigger reflow for animation
+            questionView.classList.remove('fade-in');
+            void questionView.offsetWidth; 
+            questionView.classList.add('fade-in');
+        }
+
+        function selectOption(selectedIndex, selectedButton) {
+            if (answered) return; // Prevent multiple clicks
+            answered = true;
+            
+            const currentQuestion = quizData[currentQuestionIndex];
+            const isCorrect = selectedIndex === currentQuestion.correctIndex;
+            
+            const allButtons = optionsContainer.querySelectorAll('button');
+            
+            // Update button styles
+            allButtons.forEach((btn, index) => {
+                btn.classList.remove('hover:border-blue-300', 'hover:bg-blue-50');
+                btn.style.cursor = 'default';
+                
+                if (index === currentQuestion.correctIndex) {
+                    btn.classList.add('bg-green-50', 'border-green-400');
+                    btn.innerHTML += `<span class="ml-auto text-green-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></span>`;
+                } else if (index === selectedIndex && !isCorrect) {
+                    btn.classList.add('bg-red-50', 'border-red-400');
+                    btn.innerHTML += `<span class="ml-auto text-red-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></span>`;
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            // Update Score & Feedback
+            if (isCorrect) {
+                score++;
+                feedbackContainer.classList.add('bg-green-50', 'border-green-500');
+                feedbackTitle.innerText = 'Correct';
+                feedbackTitle.className = 'text-lg font-bold text-green-800';
+                feedbackIcon.innerText = '✅';
+            } else {
+                feedbackContainer.classList.add('bg-blue-50', 'border-blue-500'); // Neutral blue for incorrect to keep professional tone
+                feedbackTitle.innerText = 'Incorrect';
+                feedbackTitle.className = 'text-lg font-bold text-blue-900';
+                feedbackIcon.innerText = '❌';
+            }
+
+            feedbackExplanation.innerText = currentQuestion.explanation;
+            feedbackContainer.classList.remove('hidden');
+            feedbackContainer.classList.add('fade-in');
+            
+            // Show Next Button
+            nextBtn.classList.remove('hidden');
+            
+            // Update text on last question
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'See Results';
+            } else {
+                nextBtn.innerText = 'Next Question';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            questionView.classList.add('hidden');
+            resultsView.classList.remove('hidden');
+            finalScore.innerText = score;
+            totalQuestions.innerText = quizData.length;
+            progressText.innerText = "Complete";
+            progressBar.style.width = "100%";
+        }
+
+        // Event Listeners
+        nextBtn.addEventListener('click', nextQuestion);
+        restartBtn.addEventListener('click', initQuiz);
+
+        // Start Quiz on load
+        initQuiz();
+
+    </script>
+</body>
+</html>
